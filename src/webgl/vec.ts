@@ -32,6 +32,10 @@ export class Vec2 implements Vec {
 
 
 
+const ZERO = '0'.charCodeAt(0);
+const NINE = '9'.charCodeAt(0);
+const A = 'a'.charCodeAt(0);
+
 export class Vec3 implements Vec {
     public x: number;
     public y: number;
@@ -57,6 +61,60 @@ export class Vec3 implements Vec {
 
     clone(): Vec3 {
         return new Vec3(this.x, this.y, this.z);
+    }
+
+    index(i: number, value: number): void {
+        switch (i) {
+            case 0: {
+                this.x = value;
+                break;
+            }
+            case 1: {
+                this.y = value;
+                break;
+            }
+            case 2: {
+                this.z = value;
+                break;
+            }
+        }
+    }
+
+    private static hexCode(char: number) {
+        if (char >= ZERO && char <= NINE) {
+            return (char - ZERO) & 0xff;
+        }
+
+        return (10 + char - A) & 0xff;
+    }
+
+    static fromHex(hex: string): Vec3 {
+        hex = hex.toLowerCase();
+        if (hex[0] === '#') {
+            hex = hex.substring(1);
+        }
+
+        const out = new Vec3(0, 0, 0);
+
+        if (hex.length !== 3 && hex.length !== 6) {
+            return out;
+        }
+
+        for (let i = 0; i < 3; i++) {
+            if (hex.length === 3) {
+                const char = this.hexCode(hex.charCodeAt(i));
+                out.index(i, (char << 4) | char);
+                continue;
+            }
+
+
+            const index = i * 2;
+            const upper = this.hexCode(hex.charCodeAt(index));
+            const lower = this.hexCode(hex.charCodeAt(index + 1));
+            out.index(i, (upper << 4) | lower);
+        }
+
+        return out;
     }
 }
 

@@ -38,6 +38,7 @@ export default function Toolbox(selected: Impulse<Tool>): HTMLElement {
     }, tools.map((t, i) => {
         const element = t.icon();
         element.dataset.id = String(i);
+        element.classList.toggle("selected", i === selectedId);
         return element;
     }));
 

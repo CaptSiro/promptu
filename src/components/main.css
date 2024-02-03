@@ -12,10 +12,14 @@ body {
     position: relative;
 }
 
-.settings {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+:root {
+    --primary-0: #666797;
+    --primary-1: #8585ac;
+    --text-0: #BECDE6;
+    --text-1: #EAE8FD;
+    --background-0: #2F3135;
+    --background-1: #4A545C;
+    --background-2: #657B81;
 }
 
 .root {
