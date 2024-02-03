@@ -6,6 +6,7 @@ uniform vec2 pos;
 uniform float zoom;
 uniform float scale;
 uniform vec3 color;
+uniform float size;
 
 void main() {
     float wz = scale * zoom;
@@ -21,11 +22,10 @@ void main() {
         worldCoord.y = abs(worldCoord.y - 1.);
     }
 
-    float linePixelWidth = 1.;
-    float lineWidth = (linePixelWidth / wz) / 2.; // draw width / size
+    float lineWidth = (size / wz) / 2.; // draw width / size
 
     vec2 pixelsBefore = floor(worldCoord / pixelRatio);
     vec2 linePortions = clamp((lineWidth - (pixelsBefore * pixelRatio)) / pixelRatio, 0., 1.);
 
-    gl_FragColor = vec4(color.x, color.y, color.z, .5 * linePortions.y);
+    gl_FragColor = vec4(color.x, color.y, color.z, 1. * linePortions.y);
 }

@@ -15,18 +15,20 @@ export class Camera {
     public zoom: number;
     public background: WebGLProgram;
     private doUpdate: boolean;
-    private color: Vec3;
+    public color: Vec3;
+    public size: number;
     private backgrounds: Map<string, WebGLProgram>;
 
 
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
-        this.gl = canvas.getContext("webgl");
+        this.gl = canvas.getContext('webgl', { premultipliedAlpha: false });
         this.position = new Vec2(0, 0);
         this.zoom = 20;
+        this.size = 1;
         this.doUpdate = false;
-        this.color = new Vec3(0.5, 0.5, 0.5);
+        this.color = new Vec3(0x80, 0x80, 0x80);
         this.compileBackgroundShaders();
 
         requestAnimationFrame(this.frame.bind(this));
@@ -122,8 +124,11 @@ export class Camera {
         const zoom = this.gl.getUniformLocation(this.background, 'zoom');
         this.gl.uniform1f(zoom, this.zoomValue());
 
+        const size = this.gl.getUniformLocation(this.background, 'size');
+        this.gl.uniform1f(size, this.size);
+
         const color = this.gl.getUniformLocation(this.background, 'color');
-        this.gl.uniform3f(color, this.color.x, this.color.y, this.color.z);
+        this.gl.uniform3f(color, this.color.x / 255, this.color.y / 255, this.color.z / 255);
 
         const vertices = new Float32Array([
             1.0, 1.0, 0.0,

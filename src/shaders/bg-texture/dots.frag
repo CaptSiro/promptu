@@ -6,6 +6,7 @@ uniform vec2 pos;
 uniform float zoom;
 uniform float scale;
 uniform vec3 color;
+uniform float size;
 
 void main() {
     float wz = scale * zoom;
@@ -21,11 +22,10 @@ void main() {
         worldCoord.y = abs(worldCoord.y - 1.);
     }
 
-    float radius = 1.;
-    float radiusSize = radius / wz; // draw width / size
+    float radius = size / wz; // draw width / size
 
-    if (sqrt(pow(worldCoord.x, 2.) + pow(worldCoord.y, 2.)) <= radiusSize) {
-        gl_FragColor = vec4(color, .5);
+    if (sqrt(pow(worldCoord.x, 2.) + pow(worldCoord.y, 2.)) <= radius) {
+        gl_FragColor = vec4(color.r, color.g, color.b, 1.);
     } else {
         discard;
     }
