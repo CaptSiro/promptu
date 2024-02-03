@@ -1,0 +1,21 @@
+.toolbox {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px;
+    background-color: #201020;
+    border: 2px solid #000;
+}
+
+.toolbox .tool {
+    width: 50px;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}

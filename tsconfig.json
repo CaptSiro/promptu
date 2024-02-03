@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "rootDirs": ["./src/", "./lib/"],
+        "outDir": "./out/",
+        "module": "ESNext",
+        "target": "ESNext",
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
