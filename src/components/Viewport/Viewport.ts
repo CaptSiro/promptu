@@ -24,7 +24,9 @@ export default function Viewport(tool: Impulse<Tool>, camera: Pointer<Camera>): 
         onPointerDown: (evt: MouseEvent) => tool.value().down(evt, camera.deref),
         onPointerUp: (evt: MouseEvent) => tool.value().up(evt, camera.deref),
         onPointerMove: (evt: MouseEvent) => tool.value().move(evt, camera.deref),
+        onWheel: (evt: WheelEvent) => camera.deref?.zoomBy(evt.deltaY / -100)
     });
+
     window.addEventListener("load", () => resizeCanvas(element));
 
     camera.deref = new Camera(element);
